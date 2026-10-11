@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Proyozonnow</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-[#F8FAFC] p-4">
+<div class="max-w-[500px] mx-auto">
+<div class="bg-black text-white rounded-[20px] p-6"><h1 class="text-[24px] font-black">Admin Panel 🔥</h1><p class="text-[12px] opacity-60 mt-1">এখান থেকে প্রোডাক্ট অ্যাড করলে সাথে সাথে সাইটে লাইভ হবে! আর কোড ডিলেট করতে হবে না!</p><a href="index.html" class="inline-block mt-3 text-[11px] bg-white text-black px-3 py-1 rounded-full">← Back to Shop</a></div>
+
+<div class="bg-white rounded-[20px] p-5 mt-4 border shadow-sm">
+<h2 class="font-black">➕ নতুন প্রোডাক্ট অ্যাড করুন</h2>
+<div class="mt-4 space-y-3">
+<input id="title" class="w-full h-11 px-4 border rounded-full text-[13px]" placeholder="প্রোডাক্টের নাম - যেমন: Miniket Chal 25kg">
+<div class="flex gap-2"><input id="price" type="number" class="flex-1 h-11 px-4 border rounded-full text-[13px]" placeholder="দাম - 1850"><input id="old_price" type="number" class="flex-1 h-11 px-4 border rounded-full text-[13px]" placeholder="পুরানো দাম"></div>
+<select id="category" class="w-full h-11 px-4 border rounded-full text-[13px]"><option value="grocery">Grocery - মুদি</option><option value="fashion">Fashion</option><option value="mobile">Mobile</option><option value="krishi">Krishi Ponno</option><option value="organic">Organic</option></select>
+<input id="shop" class="w-full h-11 px-4 border rounded-full text-[13px]" placeholder="দোকানের নাম">
+<input id="image" class="w-full h-11 px-4 border rounded-full text-[13px]" placeholder="ছবির লিংক (ঐচ্ছিক)">
+<button id="btn" onclick="addProduct()" class="w-full h-12 bg-[#FF6B00] text-white rounded-full font-bold">প্রোডাক্ট Save করুন - Live হবে! →</button>
+<div id="msg" class="text-[12px] text-center hidden"></div>
+</div>
+</div>
+
+<div class="bg-white rounded-[20px] p-5 mt-4 border">
+<h2 class="font-black">📦 Live Products (<span id="pcount">0</span>)</h2>
+<div id="plist" class="mt-3 space-y-2"></div>
+</div>
+</div>
+
+<script>
+const SUPABASE_URL='https://abejbzarptugigxrcuso.supabase.co';
+const SUPABASE_KEY='sb_secret_d7rH2CqP5td0uFdWF94ugw_ahgIM3Rh';
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+async function addProduct(){
+const btn=document.getElementById('btn');const msg=document.getElementById('msg');
+const title=document.getElementById('title').value;const price=parseInt(document.getElementById('price').value);
+const old_price=parseInt(document.getElementById('old_price').value)||null;
+const category=document.getElementById('category').value;const shop_name=document.getElementById('shop').value;
+const image_url=document.getElementById('image').value;
+if(!title||!price){msg.className='text-[12px] text-center text-red-500';msg.innerText='নাম আর দাম দিতেই হবে!';msg.classList.remove('hidden');return;}
+btn.innerText='Saving...';btn.disabled=true;
+const {error}=await supabaseClient.from('products').insert([{title,price,old_price,category,shop_name,image_url}]);
+if(error){msg.className='text-[12px] text-center text-red-500';msg.innerText='Error: '+error.message;msg.classList.remove('hidden');}
+else{msg.className='text-[12px] text-center text-green-600 font-bold';msg.innerText='✅ Success! প্রোডাক্ট লাইভ হয়ে গেছে!';msg.classList.remove('hidden');document.getElementById('title').value='';document.getElementById('price').value='';loadList();}
+btn.innerText='প্রোডাক্ট Save করুন - Live হবে! →';btn.disabled=false;
+}
+async function loadList(){
+let {data}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
+document.getElementById('pcount').innerText=data?.length||0;
+document.getElementById('plist').innerHTML=data?.map(p=>`<div class="flex justify-between items-center p-3 bg-slate-50 rounded-[12px]"><div><div class="font-bold text-[12px]">${p.title}</div><div class="text-[10px] text-slate-500">৳${p.price} - ${p.category}</div></div><button onclick="del('${p.id}')" class="text-[10px] bg-red-100 text-red-600 px-2 py-1 rounded-full">Delete</button></div>`).join('')||'No products';
+}
+async function del(id){if(!confirm('Delete করবে?'))return;await supabaseClient.from('products').delete().eq('id',id);loadList();}
+loadList();
+</script>
+</body>
+</html>
