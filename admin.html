@@ -2,68 +2,97 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin V2 - Proyozonnow Full</title>
+<title>ULTIMATE Admin - Proyozonnow</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-[#f5f5f5] p-3">
-<div class="bg-black text-white p-4 rounded-[16px] flex justify-between items-center">
-<div><h1 class="font-black text-[16px]">Admin Panel V2 - Full Control 🔥</h1><p class="text-[9px] opacity-60">500 Products | RedX | Color/Size | Orders | Sellers | Dashboard</p></div>
-<a href="/" class="bg-white text-black text-[11px] px-3 py-1.5 rounded-full">← Shop</a>
+<body class="bg-[#f5f5f5] p-2">
+<div class="bg-black text-white p-4 rounded-[16px] flex justify-between">
+<div><h1 class="font-black text-[15px]">ULTIMATE Admin - All Control 🔥</h1><p class="text-[8px] opacity-60">Products | Orders | Sellers | Delivery | Coupons | Settings | RedX</p></div>
+<a href="/" class="bg-white text-black text-[10px] px-3 py-1.5 rounded-full h-fit">Shop →</a>
 </div>
-<div class="grid grid-cols-3 gap-2 mt-3">
-<div class="bg-white p-3 rounded-[14px] border text-center"><div class="text-[20px] font-black" id="statProd">0</div><div class="text-[10px]">Products</div></div>
-<div class="bg-white p-3 rounded-[14px] border text-center"><div class="text-[20px] font-black" id="statOrder">0</div><div class="text-[10px]">Orders</div></div>
-<div class="bg-white p-3 rounded-[14px] border text-center"><div class="text-[20px] font-black" id="statSale">৳0</div><div class="text-[10px]">Total Sale</div></div>
+<div class="grid grid-cols-4 gap-1.5 mt-3">
+<div class="bg-white p-2.5 rounded-[12px] border text-center"><div id="statProd" class="font-black text-[16px]">0</div><div class="text-[8px]">Products</div></div>
+<div class="bg-white p-2.5 rounded-[12px] border text-center"><div id="statOrder" class="font-black text-[16px]">0</div><div class="text-[8px]">Orders</div></div>
+<div class="bg-white p-2.5 rounded-[12px] border text-center"><div id="statSale" class="font-black text-[14px]">৳0</div><div class="text-[8px]">Sale</div></div>
+<div class="bg-white p-2.5 rounded-[12px] border text-center"><div id="statSeller" class="font-black text-[16px]">0</div><div class="text-[8px]">Sellers</div></div>
 </div>
-<div class="grid grid-cols-2 gap-2 mt-2">
-<div class="bg-orange-500 text-white p-3 rounded-[14px] text-center"><div class="text-[14px] font-bold" id="statSeller">0</div><div class="text-[10px]">Pending Sellers</div></div>
-<div class="bg-green-600 text-white p-3 rounded-[14px] text-center"><div class="text-[14px] font-bold">RedX Ready ✓</div><div class="text-[10px]">Courier</div></div>
-</div>
-<div class="flex gap-2 mt-3 overflow-x-auto">
-<button onclick="showTab('add')" id="tab-add" class="tab bg-black text-white px-4 py-2 rounded-full text-[11px]">+ Add</button>
-<button onclick="showTab('products')" id="tab-products" class="tab bg-white border px-4 py-2 rounded-full text-[11px]">📦 Products</button>
-<button onclick="showTab('orders')" id="tab-orders" class="tab bg-white border px-4 py-2 rounded-full text-[11px]">🛒 Orders</button>
-<button onclick="showTab('sellers')" id="tab-sellers" class="tab bg-white border px-4 py-2 rounded-full text-[11px]">🏪 Sellers</button>
+<div class="flex gap-1.5 mt-3 overflow-x-auto pb-1">
+<button onclick="showTab('add')" id="tab-add" class="tab whitespace-nowrap bg-black text-white px-3 py-1.5 rounded-full text-[10px]">+ Add Product</button>
+<button onclick="showTab('products')" id="tab-products" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">📦 Products</button>
+<button onclick="showTab('orders')" id="tab-orders" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">🛒 Orders</button>
+<button onclick="showTab('sellers')" id="tab-sellers" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">🏪 Sellers</button>
+<button onclick="showTab('delivery')" id="tab-delivery" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">🚚 Delivery</button>
+<button onclick="showTab('coupons')" id="tab-coupons" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">🎟️ Coupons</button>
+<button onclick="showTab('settings')" id="tab-settings" class="tab whitespace-nowrap bg-white border px-3 py-1.5 rounded-full text-[10px]">⚙️ Settings</button>
 </div>
 <div id="panel-add" class="bg-white mt-3 p-4 rounded-[16px] border">
-<h2 class="font-bold text-[13px] mb-3">+ নতুন প্রোডাক্ট (Color/Size সহ)</h2>
-<input id="title" placeholder="নাম - Miniket Chal 25kg" class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2">
+<h2 class="font-bold text-[12px]">+ Add Product - Color/Size সহ (Live হবে)</h2>
+<input id="title" placeholder="নাম - যেমন: Miniket Chal 25kg" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-3 mb-2">
 <div class="grid grid-cols-2 gap-2 mb-2">
-<input id="price" type="number" placeholder="দাম 1850" class="border rounded-full px-4 py-2.5 text-[13px]">
-<input id="old_price" type="number" placeholder="পুরনো দাম 1950" class="border rounded-full px-4 py-2.5 text-[13px]">
+<input id="price" type="number" placeholder="দাম 1850" class="border rounded-full px-4 py-2.5 text-[12px]">
+<input id="old_price" type="number" placeholder="পুরনো দাম 1950" class="border rounded-full px-4 py-2.5 text-[12px]">
 </div>
-<select id="category" class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2"><option>Grocery</option><option>Fashion</option><option>Mobiles</option><option>Krishi Ponno</option><option>Organic</option></select>
-<input id="shop_name" placeholder="দোকানের নাম" class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2">
-<input id="image_url" placeholder="ছবির লিংক https://..." class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2">
-<input id="colors" placeholder="Colors: #ff0000,#0000ff,#ffffff" class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2">
-<input id="sizes" placeholder="Sizes: S,M,L,XL অথবা 25kg,50kg" class="w-full border rounded-full px-4 py-2.5 text-[13px] mb-2">
-<input id="desc" placeholder="বিবরণ" class="w-full border rounded-[12px] px-4 py-2.5 text-[13px] mb-3">
-<button onclick="saveProduct()" id="saveBtn" class="w-full bg-[#FF6B00] text-white py-3 rounded-full font-bold">Save - Live হবে →</button>
+<select id="category" class="w-full border rounded-full px-4 py-2.5 text-[12px] mb-2"><option>Grocery</option><option>Fashion</option><option>Mobiles</option><option>Krishi Ponno</option><option>Organic</option></select>
+<input id="shop_name" placeholder="দোকান - Madhukhali Store" class="w-full border rounded-full px-4 py-2.5 text-[12px] mb-2">
+<input id="image_url" placeholder="ছবি লিংক https://..." class="w-full border rounded-full px-4 py-2.5 text-[12px] mb-2">
+<input id="colors" placeholder="Colors: #ff0000,#0000ff,#ffffff (কমা দিয়ে)" class="w-full border rounded-full px-4 py-2.5 text-[12px] mb-2">
+<input id="sizes" placeholder="Sizes: S,M,L,XL অথবা 25kg,50kg" class="w-full border rounded-full px-4 py-2.5 text-[12px] mb-2">
+<textarea id="desc" placeholder="বিবরণ" class="w-full border rounded-[12px] px-4 py-2.5 text-[12px] mb-3"></textarea>
+<button onclick="saveProduct()" id="saveBtn" class="w-full bg-[#FF6B00] text-white py-3 rounded-full font-bold text-[12px]">Save → Live হবে</button>
 </div>
 <div id="panel-products" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
-<div class="flex justify-between"><h2 class="font-bold">📦 Products (<span id="count">0</span>/500)</h2><button onclick="loadProducts()" class="bg-black text-white px-3 py-1 rounded-full text-[11px]">Refresh</button></div>
-<select id="filterCat" onchange="loadProducts()" class="mt-2 border rounded-full px-3 py-1 text-[11px] w-full"><option value="all">All</option><option>Grocery</option><option>Fashion</option><option>Mobiles</option><option>Krishi Ponno</option><option>Organic</option></select>
-<div id="list" class="mt-3 space-y-2">Loading...</div>
+<div class="flex justify-between"><h2 class="font-bold text-[12px]">📦 Products (<span id="count">0</span>/500)</h2><button onclick="loadProducts()" class="bg-black text-white px-3 py-1 rounded-full text-[10px]">Refresh</button></div>
+<div id="list" class="mt-3 space-y-2 text-[11px]">Loading...</div>
 </div>
 <div id="panel-orders" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
-<h2 class="font-bold">🛒 Orders (<span id="ocount">0</span>) - RedX / Self</h2>
+<h2 class="font-bold text-[12px]">🛒 Orders (<span id="ocount">0</span>) - RedX/Steadfast/Self</h2>
 <div id="olist" class="mt-3 space-y-2 text-[11px]">Loading...</div>
 </div>
 <div id="panel-sellers" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
-<h2 class="font-bold">🏪 Seller Requests (<span id="scount">0</span>)</h2>
+<h2 class="font-bold text-[12px]">🏪 Sellers (<span id="scount">0</span>)</h2>
 <div id="slist" class="mt-3 space-y-2 text-[11px]">Loading...</div>
+</div>
+<div id="panel-delivery" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
+<h2 class="font-bold text-[12px]">🚚 Delivery Charge Control - Live Edit</h2>
+<p class="text-[9px] text-gray-500">এখানে Save দিলে হোমপেজে সাথে সাথে আপডেট!</p>
+<div class="mt-3 space-y-3">
+<div><label class="text-[10px] font-bold">Self Delivery FREE (60 Min)</label><input id="d_self" type="number" value="0" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-1"></div>
+<div><label class="text-[10px] font-bold">RedX 🔴</label><input id="d_redx" type="number" value="60" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-1"></div>
+<div><label class="text-[10px] font-bold">Steadfast</label><input id="d_steadfast" type="number" value="80" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-1"></div>
+<button onclick="saveDelivery()" id="dBtn" class="w-full bg-black text-white py-3 rounded-full font-bold text-[12px]">💾 Save Delivery → Live</button>
+<div id="dMsg" class="hidden text-[10px] text-green-600">✅ Saved!</div>
+</div>
+</div>
+<div id="panel-coupons" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
+<h2 class="font-bold text-[12px]">🎟️ Coupon Control</h2>
+<div class="mt-3 grid grid-cols-2 gap-2">
+<input id="c_code" placeholder="Code - EID100" class="border rounded-full px-4 py-2.5 text-[12px]">
+<input id="c_discount" type="number" placeholder="Discount % - 10" class="border rounded-full px-4 py-2.5 text-[12px]">
+</div>
+<input id="c_min" type="number" placeholder="Min Order - 500" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-2">
+<button onclick="saveCoupon()" class="w-full bg-black text-white py-2.5 rounded-full font-bold text-[12px] mt-2">Add Coupon</button>
+<div id="clist" class="mt-3 space-y-2 text-[11px]">Loading...</div>
+</div>
+<div id="panel-settings" class="hidden bg-white mt-3 p-4 rounded-[16px] border">
+<h2 class="font-bold text-[12px]">⚙️ Site Settings - Notice & Info</h2>
+<div class="mt-3 space-y-3">
+<div><label class="text-[10px] font-bold">Top Notice Banner (হোমপেজে দেখাবে)</label><input id="s_notice" placeholder="Free Delivery in Madhukhali! আজকের অফার!" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-1"></div>
+<div><label class="text-[10px] font-bold">WhatsApp Number</label><input id="s_whatsapp" placeholder="017XXXXXXXX" class="w-full border rounded-full px-4 py-2.5 text-[12px] mt-1"></div>
+<button onclick="saveSettings()" id="sBtn" class="w-full bg-black text-white py-3 rounded-full font-bold text-[12px]">💾 Save Settings → Live</button>
+<div id="sMsg" class="hidden text-[10px] text-green-600">✅ Settings Saved!</div>
+</div>
 </div>
 <script>
 const SUPABASE_URL='https://abejbzarptugigxrcuso.supabase.co';
-const KEY='sb_secret_d7rH'+'2CqP5td0uFdWF94ugw_ahgIM3Rh';
+const KEY='sb_secret_d7rH2CqP5td0uFdWF94ugw_ahgIM3Rh';
 const supabaseClient=supabase.createClient(SUPABASE_URL,KEY);
 function showTab(name){
 document.querySelectorAll('[id^=panel-]').forEach(p=>p.classList.add('hidden'));
 document.getElementById('panel-'+name).classList.remove('hidden');
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('bg-black','text-white'));
-document.getElementById('tab-'+name).classList.add('bg-black','text-white');
-if(name==='products') loadProducts(); if(name==='orders') loadOrders(); if(name==='sellers') loadSellers();
+document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('bg-black','text-white');t.classList.add('bg-white','border');});
+document.getElementById('tab-'+name).classList.remove('bg-white','border');document.getElementById('tab-'+name).classList.add('bg-black','text-white');
+if(name==='products') loadProducts(); if(name==='orders') loadOrders(); if(name==='sellers') loadSellers(); if(name==='delivery') loadDelivery(); if(name==='coupons') loadCoupons(); if(name==='settings') loadSettings();
 }
 async function saveProduct(){
 let title=document.getElementById('title').value.trim(); let price=parseInt(document.getElementById('price').value);
@@ -76,33 +105,67 @@ let desc=document.getElementById('desc').value;
 if(!title||!price){alert('নাম ও দাম দিন!');return;}
 document.getElementById('saveBtn').innerText='Saving...';
 let {error}=await supabaseClient.from('products').insert([{title,price,old_price,category,shop_name,image_url,colors,sizes,description:desc}]);
-document.getElementById('saveBtn').innerText='Save - Live হবে →';
+document.getElementById('saveBtn').innerText='Save → Live হবে';
 if(error){alert(error.message);return;}
-alert('✅ Live হয়েছে!');document.getElementById('title').value='';document.getElementById('price').value='';loadDashboard();
+alert('✅ Live!');document.getElementById('title').value='';loadDashboard();
 }
 async function loadProducts(){
-let cat=document.getElementById('filterCat').value;
-let q=supabaseClient.from('products').select('*').order('created_at',{ascending:false});
-if(cat!=='all') q=q.eq('category',cat);
-let {data}=await q; if(!data) data=[];
+let {data}=await supabaseClient.from('products').select('*').order('created_at',{ascending:false});
+if(!data) data=[];
 document.getElementById('count').innerText=data.length;
-document.getElementById('list').innerHTML=data.length?data.map(p=>`<div class="border rounded-[12px] p-3 flex justify-between"><div class="flex-1"><div class="font-bold text-[12px]">${p.title}</div><div class="text-[10px] text-gray-500">৳${p.price} | ${p.category} | C:${(p.colors||[]).join(',')} S:${(p.sizes||[]).join(',')}</div></div><button onclick="deleteProduct(${p.id})" class="bg-red-500 text-white px-3 py-1 rounded-full text-[10px] h-fit">Delete</button></div>`).join(''):'No products';
+document.getElementById('list').innerHTML=data.length?data.map(p=>`<div class="border rounded-[12px] p-3 flex justify-between"><div><div class="font-bold">${p.title}</div><div class="text-[10px] text-gray-500">৳${p.price} | ${p.category} | ${(p.colors||[]).join(',')} | ${(p.sizes||[]).join(',')}</div></div><button onclick="deleteProduct(${p.id})" class="bg-red-500 text-white px-3 py-1 rounded-full text-[10px] h-fit">Delete</button></div>`).join(''):'No products';
 }
 async function deleteProduct(id){if(!confirm('Delete?')) return; await supabaseClient.from('products').delete().eq('id',id); loadProducts();loadDashboard();}
 async function loadOrders(){
 let {data}=await supabaseClient.from('orders').select('*').order('created_at',{ascending:false}).limit(30);
 if(!data||!data.length){document.getElementById('olist').innerHTML='No orders';return;}
 document.getElementById('ocount').innerText=data.length;
-document.getElementById('olist').innerHTML=data.map(o=>`<div class="border rounded-[10px] p-2"><div class="font-bold">${o.customer_name} - ${o.phone}</div><div>${o.address}</div><div>🚚 ${o.courier} | 💳 ${o.payment_method} ${o.transaction_id||''}</div><div>Total ৳${o.total_amount} - ${o.status}</div><div class="text-[9px] text-gray-400">${new Date(o.created_at).toLocaleString()}</div><div class="flex gap-1 mt-1"><button onclick="updateOrder(${o.id},'confirmed')" class="bg-green-600 text-white px-2 py-1 rounded text-[9px]">Confirm</button><button onclick="updateOrder(${o.id},'delivered')" class="bg-black text-white px-2 py-1 rounded text-[9px]">Delivered</button></div></div>`).join('');
+document.getElementById('olist').innerHTML=data.map(o=>`<div class="border rounded-[10px] p-2"><div class="font-bold">${o.customer_name} - ${o.phone}</div><div class="text-[10px]">${o.address} | 🚚 ${o.courier} | 💳 ${o.payment_method} | ৳${o.total_amount} | ${o.status}</div><div class="flex gap-1 mt-1"><button onclick="updateOrder(${o.id},'confirmed')" class="bg-green-600 text-white px-2 py-1 rounded text-[9px]">Confirm</button><button onclick="updateOrder(${o.id},'delivered')" class="bg-black text-white px-2 py-1 rounded text-[9px]">Delivered</button></div></div>`).join('');
 }
-async function updateOrder(id,status){await supabaseClient.from('orders').update({status}).eq('id',id); loadOrders();loadDashboard();}
+async function updateOrder(id,status){await supabaseClient.from('orders').update({status}).eq('id',id); loadOrders();}
 async function loadSellers(){
 let {data}=await supabaseClient.from('sellers').select('*').order('created_at',{ascending:false});
 if(!data||!data.length){document.getElementById('slist').innerHTML='No sellers';return;}
 document.getElementById('scount').innerText=data.length;
-document.getElementById('slist').innerHTML=data.map(s=>`<div class="border rounded-[10px] p-2"><div class="font-bold">🏪 ${s.shop_name} - ${s.owner_name}</div><div>📞 ${s.phone} | ${s.category}</div><div>📍 ${s.address||''} | Status: ${s.status}</div><div class="flex gap-1 mt-1"><button onclick="updateSeller(${s.id},'approved')" class="bg-green-600 text-white px-2 py-1 rounded text-[9px]">Approve</button><button onclick="updateSeller(${s.id},'rejected')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px]">Reject</button></div></div>`).join('');
+document.getElementById('slist').innerHTML=data.map(s=>`<div class="border rounded-[10px] p-2"><div class="font-bold">🏪 ${s.shop_name} - ${s.owner_name}</div><div class="text-[10px]">${s.phone} | ${s.status}</div><div class="flex gap-1 mt-1"><button onclick="updateSeller(${s.id},'approved')" class="bg-green-600 text-white px-2 py-1 rounded text-[9px]">Approve</button><button onclick="updateSeller(${s.id},'rejected')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px]">Reject</button></div></div>`).join('');
 }
 async function updateSeller(id,status){await supabaseClient.from('sellers').update({status}).eq('id',id); loadSellers();loadDashboard();}
+async function loadDelivery(){
+let {data}=await supabaseClient.from('delivery_charges').select('*').limit(1).order('id');
+if(data&&data[0]){document.getElementById('d_self').value=data[0].self_charge;document.getElementById('d_redx').value=data[0].redx_charge;document.getElementById('d_steadfast').value=data[0].steadfast_charge;}
+}
+async function saveDelivery(){
+document.getElementById('dBtn').innerText='Saving...';
+let self_c=parseInt(document.getElementById('d_self').value)||0; let redx_c=parseInt(document.getElementById('d_redx').value)||60; let stead_c=parseInt(document.getElementById('d_steadfast').value)||80;
+let {data}=await supabaseClient.from('delivery_charges').select('id').limit(1);
+if(data&&data.length){await supabaseClient.from('delivery_charges').update({self_charge:self_c,redx_charge:redx_c,steadfast_charge:stead_c}).eq('id',data[0].id);}
+else{await supabaseClient.from('delivery_charges').insert([{self_charge:self_c,redx_charge:redx_c,steadfast_charge:stead_c}]);}
+document.getElementById('dBtn').innerText='💾 Save Delivery → Live';document.getElementById('dMsg').classList.remove('hidden');setTimeout(()=>document.getElementById('dMsg').classList.add('hidden'),2000);
+}
+async function loadCoupons(){
+let {data}=await supabaseClient.from('coupons').select('*').order('created_at',{ascending:false});
+if(!data||!data.length){document.getElementById('clist').innerHTML='No coupons';return;}
+document.getElementById('clist').innerHTML=data.map(c=>`<div class="border rounded-[10px] p-2 flex justify-between"><div><b>${c.code}</b> - ${c.discount_percent}% off (Min ৳${c.min_order})</div><button onclick="deleteCoupon(${c.id})" class="bg-red-500 text-white px-2 py-1 rounded text-[9px]">Del</button></div>`).join('');
+}
+async function saveCoupon(){
+let code=document.getElementById('c_code').value.trim().toUpperCase(); let disc=parseInt(document.getElementById('c_discount').value)||10; let min=parseInt(document.getElementById('c_min').value)||0;
+if(!code){alert('Code দিন!');return;}
+await supabaseClient.from('coupons').insert([{code,discount_percent:disc,min_order:min}]);
+document.getElementById('c_code').value='';loadCoupons();alert('Coupon Added!');
+}
+async function deleteCoupon(id){await supabaseClient.from('coupons').delete().eq('id',id);loadCoupons();}
+async function loadSettings(){
+let {data}=await supabaseClient.from('site_settings').select('*').limit(1).order('id');
+if(data&&data[0]){document.getElementById('s_notice').value=data[0].notice||'';document.getElementById('s_whatsapp').value=data[0].whatsapp||'';}
+}
+async function saveSettings(){
+document.getElementById('sBtn').innerText='Saving...';
+let notice=document.getElementById('s_notice').value; let wa=document.getElementById('s_whatsapp').value;
+let {data}=await supabaseClient.from('site_settings').select('id').limit(1);
+if(data&&data.length){await supabaseClient.from('site_settings').update({notice,whatsapp:wa}).eq('id',data[0].id);}
+else{await supabaseClient.from('site_settings').insert([{notice,whatsapp:wa}]);}
+document.getElementById('sBtn').innerText='💾 Save Settings → Live';document.getElementById('sMsg').classList.remove('hidden');setTimeout(()=>document.getElementById('sMsg').classList.add('hidden'),2000);
+}
 async function loadDashboard(){
 let {data:prods}=await supabaseClient.from('products').select('id',{count:'exact'});
 let {data:orders}=await supabaseClient.from('orders').select('total_amount');
@@ -113,7 +176,7 @@ document.getElementById('statOrder').innerText=orders?orders.length:0;
 document.getElementById('statSale').innerText='৳'+totalSale;
 document.getElementById('statSeller').innerText=sellers?sellers.length:0;
 }
-loadDashboard();loadProducts();
+loadDashboard();
 </script>
 </body>
 </html>
